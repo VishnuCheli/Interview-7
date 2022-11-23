@@ -1,0 +1,27 @@
+#Time Complexity:: O(k)-all the possible valid permutations
+#Space Complexity:: O(n)-Recursive Stack Space-max length of RS is length of array and using a collections
+#Did this code successfully run on Leetcode : Yes
+#Any problem you faced while coding this : No
+class Solution(object):
+    def countArrangement(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        self.count = 0 #create a count of all the beautiful arrangments
+        self.backtrack(n, 1, []) #initialize the backtrack function
+        return self.count #return the count of the b.a
+        
+    def backtrack(self, N, idx, temp): #create a temp array to store the index
+        if len(temp) == N: #if the length of the array equals to the given integer
+            self.count += 1 #increment the count of the b.a
+            return #base case return
+        
+        for i in range(1, N+1): #for each index in the given array
+            if i not in temp and (i % idx == 0 or idx % i == 0): #ensure that there are no duplicates?
+                #action
+                temp.append(i) #append the number from temp into new temp
+                #recurse
+                self.backtrack(N, idx+1, temp) #recursively call backtrack
+                #backtrack
+                temp.pop() #pop number that was appended to the temp before calling backtrack
